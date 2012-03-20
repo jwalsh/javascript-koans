@@ -79,15 +79,25 @@ describe(
              }
            }
 
-           expect(sum).toBe(FILL_ME_IN);
+           expect(sum).toBe(233168);
          });
 
       it('should add all the natural numbers (functional)',
          function() {
-
-           var sum = FILL_ME_IN;    /* try chaining range() and reduce() */
-
-           expect(233168).toBe(FILL_ME_IN);
+           var sum = _
+             .range(1000)
+             .filter(
+               function(x) {
+                 return x % 3 === 0 ||
+                   x % 5 === 0;
+               }
+             )
+             .reduce(
+               function(a, b) {
+                 return a + b;
+               }
+             );
+           expect(233168).toBe(sum);
          });
 
 
