@@ -34,7 +34,8 @@ describe(
 
       it('should be able to call a method on the base object',
          function() {
-           expect(this.swedishChef.answerNanny()).toEqual('Everything\'s cool!');
+           expect(this.swedishChef.answerNanny())
+             .toEqual('Everything\'s cool!');
          });
 
       it('should set constructor parameters on the base object',
@@ -49,7 +50,12 @@ describe(
          });
     });
 
-// http://javascript.crockford.com/prototypal.html
+
+/**
+ *  Use with a parent class to set up the prototypes for the subclass.
+ *  http://javascript.crockford.com/prototypal.html
+ * @return {object} child of parent.
+ */
 Object.prototype.beget = function() {
   function F() {}
   F.prototype = this;
