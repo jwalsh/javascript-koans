@@ -4,8 +4,8 @@ describe(
     'What We Have Learned',
     function() {
 
+      /****************************************************************/
       var products;
-
       beforeEach(
           function() {
             products = [
@@ -69,6 +69,42 @@ describe(
          });
 
 
+      it('should count the ingredient occurrence (imperative)',
+         function() {
+           var ingredientCount = {};
+
+           for (i = 0; i < products.length; i += 1) {
+             for (j = 0; j < products[i].ingredients.length; j += 1) {
+               ingredientCount[products[i].ingredients[j]] =
+               (ingredientCount[products[i].ingredients[j]] || 0) + 1;
+             }
+           }
+           expect(ingredientCount['mushrooms']).toBe(2);
+         });
+
+      it('should count the ingredient occurrence (functional)',
+         function() {
+           var ingredientCount = {};
+
+           var allIngredients = _(products)
+             .chain()
+             .map(
+               function(x) {
+                 return x.ingredients;
+               }
+             )
+             .flatten()
+             .forEach(
+               function(x) {
+                 ingredientCount[x] = ingredientCount[x] + 1 || 1;
+               }
+             )
+             .value();
+
+           expect(ingredientCount['mushrooms']).toBe(2);
+         });
+
+      /****************************************************************/
       it('should add all the natural numbers (imperative)',
          function() {
 
@@ -101,30 +137,8 @@ describe(
          });
 
 
-      it('should count the ingredient occurrence (imperative)',
-         function() {
-           var ingredientCount = { '{ingredient name}': 0 };
 
-           for (i = 0; i < products.length; i += 1) {
-             for (j = 0; j < products[i].ingredients.length; j += 1) {
-               ingredientCount[products[i].ingredients[j]] =
-               (ingredientCount[products[i].ingredients[j]] || 0) + 1;
-             }
-           }
-
-           expect(ingredientCount['mushrooms']).toBe(FILL_ME_IN);
-         });
-
-      it('should count the ingredient occurrence (functional)',
-         function() {
-           var ingredientCount = { '{ingredient name}': 0 };
-
-           /* chain() together map(), flatten() and reduce() */
-
-           expect(ingredientCount['mushrooms']).toBe(FILL_ME_IN);
-         });
-
-      /*************************************************************************/
+      /****************************************************************/
       /* UNCOMMENT FOR EXTRA CREDIT */
       /*
      it("should find the largest prime factor of a composite number",
