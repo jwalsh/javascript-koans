@@ -50,11 +50,21 @@ describe(
 
       it('should find a pizza I can eat (functional)',
          function() {
-
-           var productsICanEat = [];
-
-           /* solve using filter() & all() / any() */
-
+           var productsICanEat = _(products)
+             .filter(
+               function(x) {
+                 return x.containsNuts === false;
+               }
+             )
+             .filter(
+               function(x) {
+                 return _(x.ingredients)
+                   .all(
+                     function(i) {
+                       return i !== 'mushrooms';
+                     });
+               }
+             );
            expect(productsICanEat.length).toBe(1);
          });
 
